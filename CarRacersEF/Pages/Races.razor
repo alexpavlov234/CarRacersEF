@@ -1,0 +1,64 @@
+﻿@inject IModalService modal
+@page "/races"
+
+<PageTitle>Състезания</PageTitle>
+<!-- Имплементира страницата Races. -->
+@if (races == null)
+{
+		<p><em>Loading...</em></p>
+}
+else
+{
+	<table>
+<thead>
+  <tr>
+    <th><h1>Състезания</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Писта</th>
+					<th>Дата</th>
+				
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var race in races)
+			{
+						<tr>
+							<td> @race.IdRace</td>
+							<td><input type="text"  @bind="@race.TrackRace"></td>
+							<td><input type="date" @bind="@race.DateRace" /></td>
+																
+							<td><button class="btn btn-danger" @onclick="@(()=> RemoveRace(race))">Изтрий</button>
+
+								<button class="btn btn-warning" @onclick="@(()=> UpdateRace(race))">Редактирай</button>
+								</td>
+						</tr>
+			}
+			</tbody>
+			<tfoot>
+				 <tr>
+						 <td><button class="btn btn-primary" @onclick="AddRace">Добави</button></td>
+						<td><input type="text" @bind-value="@Track" /></td>
+						<td><input type="date" @bind-value="@Date" /></td>
+				
+					</tr>
+			</tfoot>
+		</table>
+</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td>
+		<RacesCarsDrivers/>
+		</td>
+  </tr>
+</tbody>
+</table>
+		
+
+
+}
+

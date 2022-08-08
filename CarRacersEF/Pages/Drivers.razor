@@ -1,0 +1,60 @@
+﻿@page "/"
+@page "/drivers"
+@inject IModalService modal
+<PageTitle>Състезатели</PageTitle>
+<!-- Имплементира страницата Drivers. -->
+@if (drivers == null)
+{
+			<p><em>Loading...</em></p>
+}
+else
+{
+			<h1>Състезатели</h1>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Собствено име</th>
+						<th>Бащино име</th>
+						<th>Фамилия</th>
+						<th>Възраст</th>
+						<th>Националност</th>
+						<th>Брой точки</th>
+						<th>Действия</th>
+					</tr>
+				</thead>
+				<tbody>
+			@foreach (var driver in drivers)
+			{
+								<tr>
+									<td> @driver.IdDriver</td>
+
+									<td><input type="text"  @bind-value="@driver.FirstNameDriver"></td>
+									<td><input type="text" @bind-value="@driver.SecondNameDriver" /></td>
+									<td><input type="text"  @bind-value="@driver.LastNameDriver"></td>
+									<td><input type="number"  @bind-value="@driver.AgeDriver"></td>
+									<td><input type="text"  @bind-value="@driver.NationalityDriver"></td>
+									<td><input type="number"  @bind-value="@driver.PointsDriver"></td>
+
+									<td><button class="btn btn-danger" @onclick="@(()=> RemoveDriver(@driver))">Изтрий</button>
+
+										<button class="btn btn-warning" @onclick="@(()=> UpdateDriver(@driver))">Редактирай</button>
+										</td>
+								</tr>
+			}
+				</tbody>
+				<tfoot>
+					 <tr>
+							<td><button class="btn btn-primary" @onclick="AddDriver">Добави</button></td>
+							<td><input type="text" @bind-value="@FirstName" /></td>
+							<td><input type="text" @bind-value="@SecondName" /></td>
+							<td><input type="text" @bind-value="@LastName" /></td>
+							<td><input type="number" @bind-value="@Age" /></td>
+							<td><input type="text" @bind-value="@Nationality" /></td>
+							<td><input type="number" @bind-value="@Points" /></td>
+						</tr>
+				</tfoot>
+			</table>
+
+}
+

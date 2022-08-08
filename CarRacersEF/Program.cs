@@ -1,6 +1,7 @@
+using Blazored.Modal;
 using CarRacersEF.Data;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor;
 
 namespace CarRacersEF
 {
@@ -9,11 +10,16 @@ namespace CarRacersEF
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            builder.Services.AddDbContext<CarContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+            builder.Services.AddSyncfusionBlazor(options => { options.IgnoreScriptIsolation = true; });
             // Add services to the container.
             builder.Services.AddRazorPages();
             builder.Services.AddServerSideBlazor();
-            builder.Services.AddSingleton<WeatherForecastService>();
+
+            //Service за попъо
+            builder.Services.AddBlazoredModal();
+
 
             var app = builder.Build();
 

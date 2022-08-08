@@ -1,0 +1,92 @@
+﻿@inject IModalService modal
+<PageTitle>Състезания</PageTitle> 
+<!-- Имплементира страницата RacesCarsDrivers. -->
+@if (carAndDriverRaces == null) 
+{ 
+    <p><em>Loading...</em></p> 
+} 
+else 
+{ 
+    <h1>Записани участници</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Състезание</th>
+      <th>Състезател</th>
+      <th>Кола</th>
+      <th>Пробег</th>
+      <th>Времетраене</th>
+      <th>Точки</th>
+      <th>Действия</th>
+    </tr>
+  </thead>
+  <tbody> 
+      @foreach (var cADR in carAndDriverRaces) { 
+    <tr>
+      <td>
+      @( cADR.Race.TrackRace +" ("+ cADR.Race.DateRace.ToString("dd MMMM yyyy") + ")")
+      </td>
+      <td>
+       @(cADR.Driver.FirstNameDriver + " " + cADR.Driver.LastNameDriver)
+      </td>
+      <td>
+       @(cADR.Car.BrandCar + " " + cADR.Car.ModelCar)
+      </td>
+      <td>
+       @cADR.Mileage
+      </td>
+      <td>
+        @cADR.Length
+      </td>
+      <td>
+        @cADR.Points
+      </td>
+      <td>
+        <button class="btn btn-danger" @onclick="@(()=> RemoveRacesCarsDrivers(cADR))">Изтрий</button>
+        
+      </td>
+    </tr> } </tbody>
+  <tfoot>
+    <tr>
+      <td>
+        <select class="select_style" @bind="@raceAdd">
+          <option value="0" disabled selected>Изберете състезание</option> 
+          @foreach (var race in races) 
+          { 
+              <option value="@race.IdRace">@( race.TrackRace +" ("+ race.DateRace.ToString("dd MMMM yyyy") + ")")</option> 
+          }
+        </select>
+      </td>
+      <td>
+        <select class="select_style" @bind="@driverAdd">
+          <option value="0" disabled selected>Изберете състезател</option> 
+          @foreach (var driver in drivers) 
+          {
+              <option value="@driver.IdDriver">@(driver.FirstNameDriver + " " + driver.LastNameDriver)</option> 
+          }
+        </select>
+      </td>
+      <td>
+        <select class="select_style" @bind="@carAdd" >
+          <option value="0" disabled selected>Изберете кола</option> 
+          @foreach (var car in cars) 
+          { 
+              <option value="@car.IdCar">@(car.BrandCar + " " + car.ModelCar)</option> 
+          }
+        </select>
+      </td>
+      <td>
+        <input type="int" @bind-value="@Mileage" />
+      </td>
+      <td>
+        <input type="int" @bind-value="@Length" />
+      </td>
+      <td>
+        <input type="int" @bind-value="@Points" />
+      </td>
+      <td>
+        <button class="btn btn-primary" @onclick="AddRacesCarsDrivers">Добави</button>
+      </td>
+    </tr>
+  </tfoot>
+</table> }

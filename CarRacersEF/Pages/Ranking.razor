@@ -1,0 +1,43 @@
+﻿@page "/ranking"
+
+<PageTitle>Класация</PageTitle>
+<!-- Имплементира страницата Ranking. -->
+
+@if (drivers == null)
+{
+		<p><em>Loading...</em></p>
+}
+else
+{
+		<h1>Класация</h1>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Собствено име</th>
+					<th>Бащино име</th>
+					<th>Фамилия</th>
+					<th>Националност</th>
+					<th>Брой точки</th>
+				
+				</tr>
+			</thead>
+			<tbody>
+			@foreach (var driver in drivers)
+			{
+						<tr>
+							
+
+							<td>@driver.FirstNameDriver</td>
+							<td>@driver.SecondNameDriver</td>
+							<td>@driver.LastNameDriver</td>
+							<td>@driver.NationalityDriver</td>
+							<td>@driver.PointsDriver</td>
+
+						</tr>
+			}
+			</tbody>
+			
+		</table>
+
+}
+
